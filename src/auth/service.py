@@ -1,7 +1,6 @@
 from typing import Optional
 
-from .models import Users
-from .schemas import UserRegister
+from .models import Users, UserRegister
 
 
 def check_password(password: str) -> bool:

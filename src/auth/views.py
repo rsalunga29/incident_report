@@ -3,17 +3,27 @@ from sqlalchemy.orm import Session
 
 from src.deps import get_db
 
-from .schemas import UserRegister
-from .models import Users
-from .service import create
+from .models import Users, UserRegister, UserLogin
+from .service import create, get_by_email
 
 auth_router = APIRouter()
 user_router = APIRouter()
 
 
 @auth_router.post('/login')
-def login():
-    return {'auth': 'views_login_route'}
+def login(user_request: UserLogin, db_session: Session = Depends(get_db)):
+    """[summary]
+
+    Args:
+        user_request (UserLogin): [description]
+        db_session (Session, optional): [description]. Defaults to Depends(get_db).
+    """
+    user = get_by_email(user_request.email)
+
+    if user and user.check_password:
+        pass
+
+    raise HTTPException(status_code=401, detail='Invalid email or password')
 
 
 @auth_router.post('/register')
@@ -24,9 +34,6 @@ def register(user_request: UserRegister,
     Args:
         user_request (UserRegister): Schema created using Pydantic
         db_session (Session, optional): The Database session. Defaults to Depends(get_db).
-
-    Returns:
-        [type]: [description]
     """
     user = create(db_session=db_session, user_details=user_request)
 
