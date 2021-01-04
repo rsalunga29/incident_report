@@ -3,6 +3,6 @@ fastapi
 sqlalchemy
 uvicorn
 jinja2
-mysqlclient
+pymysql
 bcrypt
 python-jose

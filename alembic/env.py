@@ -18,7 +18,7 @@ fileConfig(config.config_file_name)
 # config.set_main_option('sqlalchemy.url', str(SQLALCHEMY_DATABASE_URI)) # uncomment for prod
 config.set_main_option(
     'sqlalchemy.url',
-    'mysql://root@localhost:3306/incident_report',
+    'mysql+pymysql://root@localhost:3306/incident_report',
 )
 
 # add your model's MetaData object here
