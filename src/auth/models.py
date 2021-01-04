@@ -1,8 +1,11 @@
 import bcrypt
 
+from datetime import datetime, timedelta
 from sqlalchemy import Column, Integer, String, DateTime, text
-from src.database import Base
 from pydantic import BaseModel, validator
+from jose import jwt
+
+from src.database import Base
 
 
 # SQLAlchemy Models
@@ -15,6 +18,19 @@ class Users(Base):
     email = Column(String(255), nullable=False)
     password = Column(String(255), nullable=False)
     created_at = Column(DateTime, nullable=False, server_default=text('now()'))
+
+    def check_password(self, password):
+        return bcrypt.checkpw(password.encode('utf-8'), self.password)
+
+    @property
+    def token(self):
+        now = datetime.utcnow()
+        exp = (now + timedelta(seconds=86400)
+               ).timestamp  # @TODO: Make seconds dynamic via config.py
+        data = {'exp': exp, 'email': self.email}
+
+        # @TODO: Make algorigthm and data dynamic via config.py
+        return jwt.encode(data, 'data', algorithm='HS256')
 
 
 # Pydantic Models

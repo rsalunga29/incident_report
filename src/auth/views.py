@@ -15,8 +15,8 @@ def login(user_request: UserLogin, db_session: Session = Depends(get_db)):
     """[summary]
 
     Args:
-        user_request (UserLogin): [description]
-        db_session (Session, optional): [description]. Defaults to Depends(get_db).
+        user_request (UserLogin): Schema created using Pydantic
+        db_session (Session, optional): The Database session. Defaults to Depends(get_db).
     """
     user = get_by_email(user_request.email)
 
