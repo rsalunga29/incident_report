@@ -6,6 +6,7 @@ from pydantic import BaseModel, validator
 from jose import jwt
 
 from src.database import Base
+from src.config import JWT_EXPIRATION, JWT_ALGORITHM, JWT_SECRET
 
 
 # SQLAlchemy Models
@@ -25,12 +26,10 @@ class Users(Base):
     @property
     def token(self):
         now = datetime.utcnow()
-        exp = (now + timedelta(seconds=86400)
-               ).timestamp  # @TODO: Make seconds dynamic via config.py
+        exp = (now + timedelta(seconds=JWT_EXPIRATION)).timestamp
         data = {'exp': exp, 'email': self.email}
 
-        # @TODO: Make algorigthm and data dynamic via config.py
-        return jwt.encode(data, 'data', algorithm='HS256')
+        return jwt.encode(data, JWT_SECRET, algorithm=JWT_ALGORITHM)
 
 
 # Pydantic Models
