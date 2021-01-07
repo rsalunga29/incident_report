@@ -20,8 +20,8 @@ def login(user_request: UserLogin, db_session: Session = Depends(get_db)):
     """
     user = get_by_email(user_request.email)
 
-    if user and user.check_password:
-        pass
+    if user and user.check_password(user_request.password):
+        return {'token': user.token}
 
     raise HTTPException(status_code=401, detail='Invalid email or password')
 
