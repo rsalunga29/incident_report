@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends, Request, HTTPException, Query
+from pydantic.networks import HttpUrl
 from sqlalchemy.orm import Session
 
 from src.deps import get_db
@@ -12,13 +13,13 @@ user_router = APIRouter()
 
 @auth_router.post('/login')
 def login(user_request: UserLogin, db_session: Session = Depends(get_db)):
-    """[summary]
+    """Allow user to log in if its existing and password is correct
 
     Args:
         user_request (UserLogin): Schema created using Pydantic
         db_session (Session, optional): The Database session. Defaults to Depends(get_db).
     """
-    user = get_by_email(user_request.email)
+    user = get_by_email(db_session=db_session, email=user_request.email)
 
     if user and user.check_password(user_request.password):
         return {'token': user.token}
@@ -29,15 +30,21 @@ def login(user_request: UserLogin, db_session: Session = Depends(get_db)):
 @auth_router.post('/register')
 def register(user_request: UserRegister,
              db_session: Session = Depends(get_db)):
-    """Registers a new user
+    """Allows a user to register if it doesnt exist yet
 
     Args:
         user_request (UserRegister): Schema created using Pydantic
         db_session (Session, optional): The Database session. Defaults to Depends(get_db).
     """
-    user = create(db_session=db_session, user_details=user_request)
+    user_exist = get_by_email(db_session=db_session, email=user_request.email)
 
-    return user
+    if not user_exist:
+        user = create(db_session=db_session, user_details=user_request)
+
+        return user
+
+    raise HTTPException(status_code=400,
+                        detail='Email address already exists.')
 
 
 @auth_router.post('/logout')
