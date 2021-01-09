@@ -7,7 +7,7 @@ function login(to, from, next) {
     store.commit('auth/SET_USER_LOGIN', token)
     next()
   } else {
-    if (to.path !== '/auth/login') {
+    if (to.path !== '/auth/login' && to.path !== '/auth/register') {
       next('/auth/login')
     } else {
       next()

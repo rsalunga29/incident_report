@@ -1,8 +1,12 @@
 <template>
-  <div>
-    auth layout
+  <section>
+    <div
+      class="hero is-success"
+      style="height: 10rem;"
+    ></div>
+
     <router-view :key="$route.path" />
-  </div>
+  </section>
 </template>
 
 <script>
