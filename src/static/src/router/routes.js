@@ -1,6 +1,13 @@
+import { AuthLayout, DashboardLayout } from '@/components/Layouts'
+
 export const publicRoutes = [
   {
+    path: '*',
+    component: () => import(/* webpackChunkName: 'errors-404' */ '@/errors/NotFound.vue')
+  },
+  {
     path: '/auth',
+    component: AuthLayout,
     meta: {
       title: 'Auth',
       group: 'auth'
@@ -15,7 +22,7 @@ export const publicRoutes = [
       {
         path: 'register',
         name: 'Register',
-        component: () => import(/* webpackChunkName: 'auth-login' */ '@/auth/Register.vue')
+        component: () => import(/* webpackChunkName: 'auth-register' */ '@/auth/Register.vue')
       },
     ],
   }
