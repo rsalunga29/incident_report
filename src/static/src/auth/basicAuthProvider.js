@@ -5,13 +5,13 @@ function login(to, from, next) {
 
   if (token) {
     store.commit('auth/SET_USER_LOGIN', token)
+    next()
   } else {
     if (to.path !== '/auth/login') {
       next('/auth/login')
     } else {
       next()
     }
-    next()
   }
 }
 
