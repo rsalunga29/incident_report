@@ -34,7 +34,7 @@ class Users(Base):
     def token(self):
         now = datetime.utcnow()
         exp = (now + timedelta(seconds=JWT_EXPIRATION)).timestamp()
-        data = {'exp': exp, 'email': self.email}
+        data = {'exp': exp, 'name': self.name, 'email': self.email}
 
         return jwt.encode(data, JWT_SECRET, algorithm=JWT_ALGORITHM)
 
