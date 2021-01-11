@@ -40,8 +40,8 @@ export const protectedRoutes = [
     component: DashboardLayout,
     redirect: '/dashboard/issues',
     meta: {
-      title: 'Bug Reports',
-      group: 'bug-reports',
+      title: 'Issues',
+      group: 'issues',
     },
   }
 ]
