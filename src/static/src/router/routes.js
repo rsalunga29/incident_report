@@ -32,7 +32,7 @@ export const publicRoutes = [
 export const protectedRoutes = [
   {
     path: '/',
-    redirect: 'dashboard/issues',
+    redirect: '/dashboard',
   },
 
   {
@@ -40,8 +40,21 @@ export const protectedRoutes = [
     component: DashboardLayout,
     redirect: '/dashboard/issues',
     meta: {
-      title: 'Issues',
-      group: 'issues',
+      title: 'Dashboard',
+      group: 'dashboard',
     },
+    children: [
+      {
+        path: 'issues',
+        name: 'issues-dashboard',
+        component: () => import(/* webpackChunkName: 'issues-overview' */ '@/issues/Overview.vue'),
+      },
+
+      {
+        path: 'tasks',
+        name: 'tasks-dashboard',
+        component: () => import(/* webpackChunkName: 'tasks-overview' */ '@/tasks/Overview.vue'),
+      }
+    ],
   }
 ]

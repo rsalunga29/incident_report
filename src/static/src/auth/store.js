@@ -6,12 +6,13 @@ import UserAPI from './api'
 const state = {
   status: { loggedIn: false },
   accessToken: localStorage.getItem('token') || null,
-  userInfo: { email: '' }
+  userInfo: { name: '', email: '' }
 }
 
 const getters = {
   accessToken: () => state.accessToken,
   email: () => state.userInfo.email,
+  name: () => state.userInfo.name,
 }
 
 const mutations = {
@@ -21,6 +22,14 @@ const mutations = {
     state.userInfo = jwt_decode(accessToken)
 
     localStorage.setItem('token', accessToken)
+  },
+
+  SET_USER_LOGOUT(state) {
+    state.accessToken = null
+    state.status.loggedIn = false
+    state.userInfo = null
+
+    localStorage.removeItem('token')
   }
 }
 
@@ -53,6 +62,10 @@ const actions = {
           position: 'is-bottom-right',
         })
       })
+  },
+
+  logout({ commit }) {
+    commit('SET_USER_LOGOUT')
   }
 }
 

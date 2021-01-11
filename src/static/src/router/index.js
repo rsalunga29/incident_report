@@ -11,7 +11,7 @@ const routes = publicRoutes.concat(protectedRoutes)
 
 const router = new VueRouter({
   mode: 'history',
-  linkActiveClass: 'active',
+  linkExactActiveClass: 'is-active',
   routes: routes
 })
 
