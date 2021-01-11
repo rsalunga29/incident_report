@@ -1,18 +1,18 @@
-# Incident Report
+# Issue Tracker
 
-Incident Report is a FastAPI & VueJS Practice Project inspired by [Netflix's Dispatch](https://github.com/Netflix/dispatch/). Some line of code from their source code are copied and used here.
+Issue Tracker is a FastAPI & VueJS Practice Project inspired by [Netflix's Dispatch](https://github.com/Netflix/dispatch/). Some line of code from their source code are copied and used here.
 
 ## Installation
 
 Clone the project using the Git Clone command
 
 ```bash
-$ git clone https://github.com/rsalunga29/incident_report
+$ git clone https://github.com/rsalunga29/issue_tracker
 ```
 Create a Virtual Environment using `virtualenv` package from Pip
 
 ```bash
-$ cd incident_report
+$ cd issue_tracker
 $ pip install virtualenv
 $ virtualenv env
 ```
