@@ -66,7 +66,6 @@ import { ValidationObserver, ValidationProvider, extend } from 'vee-validate';
 import { required, email } from 'vee-validate/dist/rules';
 
 extend('email', email);
-
 extend('required', {
   ...required,
   message: 'This field is required.',
@@ -87,8 +86,10 @@ export default {
 
   methods: {
     login() {
-      console.log(this.email);
-      console.log(this.password);
+      this.$store.dispatch('auth/login', {
+        email: this.email,
+        password: this.password,
+      });
     },
   },
 };

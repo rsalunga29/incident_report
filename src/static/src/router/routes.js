@@ -5,6 +5,7 @@ export const publicRoutes = [
     path: '*',
     component: () => import(/* webpackChunkName: 'errors-404' */ '@/errors/NotFound.vue')
   },
+
   { // @TODO: Disable route if user is already logged in
     path: '/auth',
     component: AuthLayout,
@@ -28,4 +29,19 @@ export const publicRoutes = [
   }
 ]
 
-export const protectedRoutes = []
+export const protectedRoutes = [
+  {
+    path: '/',
+    redirect: 'dashboard/issues',
+  },
+
+  {
+    path: '/dashboard',
+    component: DashboardLayout,
+    redirect: '/dashboard/issues',
+    meta: {
+      title: 'Bug Reports',
+      group: 'bug-reports',
+    },
+  }
+]
