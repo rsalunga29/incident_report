@@ -14,6 +14,7 @@
             >
               <b-field
                 label="Email"
+                class="mb-4"
                 slot-scope="{ errors, valid }"
                 :type="valid ? 'is-success' : ''"
               >
@@ -32,7 +33,7 @@
             >
               <b-field
                 label="Password"
-                class="mt-3"
+                class="mb-4"
                 slot-scope="{ errors, valid }"
                 :type="valid ? 'is-success' : ''"
               >
@@ -45,7 +46,7 @@
             </ValidationProvider>
 
             <b-button
-              type="is-success is-fullwidth mt-3"
+              type="is-success is-fullwidth"
               :disabled="invalid || !validated"
               @click="login"
             >Login</b-button>
