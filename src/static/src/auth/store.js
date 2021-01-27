@@ -76,7 +76,7 @@ const actions = {
   },
 
   getAllUsers: debounce(({ commit }) => {
-    return UserAPI.getAll().then(response => {
+    return UserAPI.all().then(response => {
       commit('SET_ALL_USERS', response.data)
     })
   }, 2000),

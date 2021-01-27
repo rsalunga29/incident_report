@@ -11,7 +11,7 @@ export default {
     return API.post('/auth/register', { name: name, email: email, password: password })
   },
 
-  getAll() {
+  all() {
     return API.get(`${prefix}/`)
   }
 }
