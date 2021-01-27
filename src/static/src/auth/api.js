@@ -1,6 +1,6 @@
 import API from '@/api'
 
-const prefix = '/user'
+const prefix = '/users'
 
 export default {
   login(email, password) {
@@ -9,5 +9,9 @@ export default {
 
   register(name, email, password) {
     return API.post('/auth/register', { name: name, email: email, password: password })
+  },
+
+  getAll() {
+    return API.get(`${prefix}/`)
   }
 }
