@@ -44,6 +44,10 @@ class UserBase(BaseModel):
     name: str
     email: str
 
+    class Config:
+        orm_mode = True
+        validate_assignment = True
+
     @validator('email')
     def email_required(cls, v):
         if not v:

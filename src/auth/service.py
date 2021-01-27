@@ -3,6 +3,10 @@ from typing import Optional
 from .models import Users, UserRegister
 
 
+def get_all_users(db_session) -> Optional[Users]:
+    return db_session.query(Users).all()
+
+
 def get_by_id(db_session, user_id: int) -> Optional[Users]:
     return db_session.query(Users).filter(Users.id == user_id).one_or_none()
 

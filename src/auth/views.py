@@ -1,11 +1,11 @@
-from fastapi import APIRouter, Depends, Request, HTTPException, Query
-from pydantic.networks import HttpUrl
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
+from typing import List
 
 from src.deps import get_db
 
-from .models import Users, UserRegister, UserLogin
-from .service import create, get_by_email
+from .models import UserRegister, UserLogin, UserRead
+from .service import create, get_all_users, get_by_email
 
 auth_router = APIRouter()
 user_router = APIRouter()
@@ -52,6 +52,8 @@ def logout():
     return {'auth': 'views_logout_route'}
 
 
-@user_router.get('/')
+@user_router.get('/', response_model=List[UserRead])
 def get_users(db_session: Session = Depends(get_db)):
-    return {'user': 'views_get_users_route'}
+    users = get_all_users(db_session=db_session)
+
+    return users
