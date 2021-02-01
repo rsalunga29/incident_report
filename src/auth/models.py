@@ -57,7 +57,8 @@ class UserBase(BaseModel):
     @validator('email')
     def email_required(cls, v):
         if not v:
-            raise ValueError('Must not be empty string and must be an email')
+            raise ValueError(
+                'Must not be an empty string and must be an email')
 
         return v
 
@@ -77,14 +78,15 @@ class UserLogin(BaseModel):
     @validator('email')
     def email_required(cls, v):
         if not v:
-            raise ValueError('Must not be empty string and must be an email')
+            raise ValueError(
+                'Must not be an empty string and must be an email')
 
         return v
 
     @validator('password')
     def password_required(cls, v):
         if not v:
-            raise ValueError('Must not be empty string')
+            raise ValueError('Must not be an empty string')
 
         return v
 
