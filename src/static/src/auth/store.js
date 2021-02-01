@@ -62,7 +62,6 @@ const actions = {
         dispatch('login', data)
       })
       .catch(error => {
-        console.log(error)
         Snackbar.open({
           type: 'is-danger',
           message: `Cannot create user. Reason: ${error.response.data.detail}`,
