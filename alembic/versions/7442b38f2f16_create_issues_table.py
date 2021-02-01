@@ -26,7 +26,7 @@ def upgrade():
             nullable=False,
         ),
         sa.Column(
-            'assigned_user_id',
+            'assignee_id',
             sa.Integer,
             sa.ForeignKey('users.id', ondelete='cascade'),
             nullable=False,
