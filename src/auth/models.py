@@ -2,6 +2,7 @@ import bcrypt
 
 from datetime import datetime, timedelta
 from sqlalchemy import Column, Integer, String, DateTime, Binary, text
+from sqlalchemy.orm import backref, relationship
 from pydantic import BaseModel, validator
 from jose import jwt
 
@@ -26,6 +27,11 @@ class Users(Base):
     email = Column(String(255), unique=True, nullable=False)
     password = Column(Binary, nullable=False)
     created_at = Column(DateTime, nullable=False, server_default=text('now()'))
+
+    issues = relationship(
+        'Issues',
+        primaryjoin='Users.id==Issues.assignee_id',
+    )
 
     def check_password(self, password):
         return bcrypt.checkpw(password.encode('utf-8'), self.password)
@@ -85,3 +91,7 @@ class UserLogin(BaseModel):
 
 class UserRead(UserBase):
     id: int
+
+
+class AssignedIssues(UserBase):
+    issues: list
