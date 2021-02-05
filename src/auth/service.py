@@ -1,6 +1,23 @@
+from fastapi import HTTPException
+from starlette.requests import Request
+from starlette.status import HTTP_401_UNAUTHORIZED
+from jose import jwt
 from typing import Optional
 
 from .models import Users, UserRegister
+
+from src.config import JWT_ALGORITHM, JWT_SECRET
+
+
+# @TODO: Get current user for auth check
+def get_current_user(request: Request) -> Users:
+    if request.headers.get('authorization'):
+        token = request.headers.get('authorization').split()
+        user = jwt.decode(token[1], JWT_SECRET, algorithms=JWT_ALGORITHM)
+
+        return user
+    else:
+        raise HTTPException(status_code=HTTP_401_UNAUTHORIZED, detail="Could not validate credentials")
 
 
 def get_all_users(db_session) -> Optional[Users]:
