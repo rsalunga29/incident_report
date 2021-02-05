@@ -93,6 +93,7 @@ class UserLogin(BaseModel):
 
 class UserRead(UserBase):
     id: int
+    created_at: datetime
 
 
 class AssignedIssues(UserBase):
