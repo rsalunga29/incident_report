@@ -17,7 +17,7 @@ def get_current_user(request: Request) -> Users:
 
         return user
     else:
-        raise HTTPException(status_code=HTTP_401_UNAUTHORIZED, detail="Could not validate credentials")
+        raise HTTPException(status_code=HTTP_401_UNAUTHORIZED, detail='Could not validate credentials')
 
 
 def get_all_users(db_session) -> Optional[Users]:
