@@ -9,8 +9,8 @@ from .models import Users, UserRegister
 from src.config import JWT_ALGORITHM, JWT_SECRET
 
 
-# @TODO: Get current user for auth check
 def get_current_user(request: Request) -> Users:
+    """Attempts to get the current logged in user. Raises an exception if User is not recognized."""
     if request.headers.get('authorization'):
         token = request.headers.get('authorization').split()
         user = jwt.decode(token[1], JWT_SECRET, algorithms=JWT_ALGORITHM)
