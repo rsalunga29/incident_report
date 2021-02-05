@@ -22,13 +22,13 @@ def upgrade():
         sa.Column(
             'reporter_id',
             sa.Integer,
-            sa.ForeignKey('users.id', ondelete='cascade'),
+            sa.ForeignKey('users.id', ondelete='SET NULL'),
             nullable=False,
         ),
         sa.Column(
             'assignee_id',
             sa.Integer,
-            sa.ForeignKey('users.id', ondelete='cascade'),
+            sa.ForeignKey('users.id', ondelete='SET NULL'),
             nullable=False,
         ),
         sa.Column('ref_number', sa.String(255), nullable=False),
