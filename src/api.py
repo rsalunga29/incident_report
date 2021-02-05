@@ -9,7 +9,7 @@ from src.issues.views import issues_router
 api_router = APIRouter(default_response_class=JSONResponse)
 authenticated_api_router = APIRouter()
 
-authenticated_api_router.include_router(auth_router, prefix='/auth', tags=['auth'])
+api_router.include_router(auth_router, prefix='/auth', tags=['auth'])
 authenticated_api_router.include_router(user_router, prefix='/users', tags=['users'])
 authenticated_api_router.include_router(issues_router, prefix='/issues', tags=['issues'])
 
