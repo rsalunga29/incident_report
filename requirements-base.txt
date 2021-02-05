@@ -1,4 +1,4 @@
-alembic
+alembic # orator-orm is also a good alternative
 fastapi
 sqlalchemy
 uvicorn
