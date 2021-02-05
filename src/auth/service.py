@@ -9,6 +9,7 @@ from .models import Users, UserRegister
 from src.config import JWT_ALGORITHM, JWT_SECRET
 
 
+# @TODO: Not secured. Need to check if user.email exists in the database.
 def get_current_user(request: Request) -> Users:
     """Attempts to get the current logged in user. Raises an exception if User is not recognized."""
     if request.headers.get('authorization'):
