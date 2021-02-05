@@ -7,49 +7,51 @@
       >
         <div class="card has-background-light">
           <div class="card content p-3">
-            <ValidationProvider
-              name="email"
-              rules="required|email"
-              immediate
-            >
-              <b-field
-                label="Email"
-                class="mb-4"
-                slot-scope="{ errors, valid }"
-                :type="valid ? 'is-success' : ''"
+            <form @submit.prevent="login">
+              <ValidationProvider
+                name="email"
+                rules="required|email"
+                immediate
               >
-                <b-input
-                  type="email"
-                  v-model="email"
-                  :validation-message="errors[0]"
-                />
-              </b-field>
-            </ValidationProvider>
+                <b-field
+                  label="Email"
+                  class="mb-4"
+                  slot-scope="{ errors, valid }"
+                  :type="valid ? 'is-success' : ''"
+                >
+                  <b-input
+                    type="email"
+                    v-model="email"
+                    :validation-message="errors[0]"
+                  />
+                </b-field>
+              </ValidationProvider>
 
-            <ValidationProvider
-              name="password"
-              rules="required"
-              immediate
-            >
-              <b-field
-                label="Password"
-                class="mb-4"
-                slot-scope="{ errors, valid }"
-                :type="valid ? 'is-success' : ''"
+              <ValidationProvider
+                name="password"
+                rules="required"
+                immediate
               >
-                <b-input
-                  type="password"
-                  v-model="password"
-                  :validation-message="errors[0]"
-                />
-              </b-field>
-            </ValidationProvider>
+                <b-field
+                  label="Password"
+                  class="mb-4"
+                  slot-scope="{ errors, valid }"
+                  :type="valid ? 'is-success' : ''"
+                >
+                  <b-input
+                    type="password"
+                    v-model="password"
+                    :validation-message="errors[0]"
+                  />
+                </b-field>
+              </ValidationProvider>
 
-            <b-button
-              type="is-success is-fullwidth"
-              :disabled="invalid || !validated"
-              @click="login"
-            >Login</b-button>
+              <b-button
+                type="is-success is-fullwidth"
+                native-type="submit"
+                :disabled="invalid || !validated"
+              >Login</b-button>
+            </form>
 
             <p class="is-size-7 has-text-centered mt-2">
               Don't have an account?
