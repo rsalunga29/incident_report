@@ -2,6 +2,7 @@ from fastapi import HTTPException
 from starlette.requests import Request
 from starlette.status import HTTP_401_UNAUTHORIZED
 from jose import jwt
+from jose.exceptions import ExpiredSignatureError
 from typing import Optional
 
 from .models import Users, UserRegister
@@ -14,7 +15,11 @@ def get_current_user(request: Request) -> Users:
     """Attempts to get the current logged in user. Raises an exception if User is not recognized."""
     if request.headers.get('authorization'):
         token = request.headers.get('authorization').split()
-        user = jwt.decode(token[1], JWT_SECRET, algorithms=JWT_ALGORITHM)
+
+        try:
+            user = jwt.decode(token[1], JWT_SECRET, algorithms=JWT_ALGORITHM)
+        except ExpiredSignatureError:
+            raise HTTPException(status_code=HTTP_401_UNAUTHORIZED, detail='Signature has expired. Please re-login.')
 
         return user
     else:
